@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 let range = 7
@@ -115,25 +116,6 @@ const completeCitizenshipForeignPassports = (promise) => {
     .then(() => { return setText('.passports .citizenship-item .daterange .datecontrol.to .month input', '2') })
     .then(() => { return setText('.passports .citizenship-item .daterange .datecontrol.to .day input', '2') })
     .then(() => { return setText('.passports .citizenship-item .daterange .datecontrol.to .year input', '1995') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Citizenship/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Citizenship/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = () => {

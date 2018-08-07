@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 let counter = 0
@@ -262,25 +263,6 @@ const completeAssociationsTerrorism = (promise) => {
   return promise
     .then(() => { return setOption('.legal-associations-terrorism-has-terrorism .branch .yes') })
     .then(() => { return setText('.legal-associations-terrorism-explanation textarea', 'No explanation') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(3000)
-    .saveScreenshot('./screenshots/Legal/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Legal/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = () => {

@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 let counter = 0
@@ -119,25 +120,6 @@ const completeForeignMilitary = (promise) => {
     .then(() => { return setText('.foreign-contact-dates .datecontrol.to .day input', '1') })
     .then(() => { return setText('.foreign-contact-dates .datecontrol.to .year input', '2005') })
     .then(() => { return setText('.foreign-contact-frequency input', 'Monthly') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Military/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Military/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = () => {

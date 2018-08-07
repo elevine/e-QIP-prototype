@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 let range = 7
@@ -112,26 +113,6 @@ const completePyschologicalDiagnoses = (promise) => {
     .then(() => { return setDomesticAddress('.diagnoses .facility .location .address', '13709 Walsingham Rd', 'Largo', 'FL', '33774') })
     .then(() => { return setOptionWithPause('.diagnoses .blocks.effective .block label') })
     .then(() => { return setOption('.diagnoses .branch.addendum .blocks.option-list .no.block label') })
-}
-
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Psychological/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Psychological/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = (section) => {

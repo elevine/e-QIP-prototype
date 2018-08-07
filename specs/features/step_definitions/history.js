@@ -1,5 +1,7 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
+
 
 let subcontext = ""
 let range = 10
@@ -67,7 +69,7 @@ const completeResidence = (promise) => {
     .then(() => { return setText('.residence .component .datecontrol.reference-last-contact .usa-form-group.year input', getCurrentYear()-range) })
     .then(() => { return setOption('.residence .relationship .block label') })
     .then(() => { return setDomesticTelephone('.residence .telephone', '703', '111', '2222', 'Cell') })
-    .then(() => { return setOption('.residence .telephone.reference-phone-day .nonumber.block') })
+    .then(() => { return setOption('.residence .telephone.reference-phone-day .nonumber.block').pause() })
     .then(() => { return setOption('.residence .telephone.reference-phone-mobile .nonumber.block') })
     .then(() => { return setText('.residence .reference-email input', 'test@test.com') })
     .then(() => { return setDomesticAddress('.residence .reference-address .address', '13709 Walsingham Rd', 'Largo', 'FL', '33774') })
@@ -86,7 +88,7 @@ const completeEmployment = (promise) => {
     .then(() => { return setText('.employment .daterange .datecontrol.from .year input', getCurrentYear()-range) })
     .then(() => { return setOption('.employment .daterange .from-present .block label') })
     .then(() => { return setDomesticAddress('.employment .address', '13709 Walsingham Rd', 'Largo', 'FL', '33774') })
-    .then(() => { return setDomesticTelephone('.employment .telephone', '703', '111', '2222', 'Cell') })
+    .then(() => { return setDomesticTelephone('.employment .telephone', '703', '111', '2222', 'Cell') .pause()})
     .then(() => { return setOption('.employment .physical-address .option-list .no.block') })
     .then(() => { return setText('.employment .supervisor .field input', 'Test Supervisor') })
     .then(() => { return setText('.employment .supervisor .field .supervisor-title input', 'Lead Supervisor') })
@@ -132,7 +134,7 @@ const completeEducation = (promise) => {
     .then(() => { return setText('.education .datecontrol.reference-last-contact .year input', getCurrentYear()-range) })
     .then(() => { return setOption('.education .relationship .reference-relationship-neighbor.block label') })
     .then(() => { return setDomesticTelephone('.education .telephone.reference-phone', '703', '555', '6666', 'Cell') })
-    .then(() => { return setText('.education .email.reference-email input', 'test@test.com') })
+    .then(() => { return setText('.education .email.reference-email input', 'test@test.com')})
     .then(() => { return setDomesticAddress('.education .location.reference-address .address', '13709 Walsingham Rd', 'Largo', 'FL', '33774') })
     .then(() => { return setOption('.education .receive-degree .field.branch .yes.block label') })
     .then(() => { return setOption('.education .diploma.option-list .diploma-bachelor.block label') })
@@ -153,25 +155,6 @@ const completeFederal = (promise) => {
     .then(() => { return setText('.federal .field.federal-agency input', 'General Services Administration') })
     .then(() => { return setText('.federal .field.federal-position input', 'Usability Test Engineer') })
     .then(() => { return setDomesticAddress('.federal .federal-agency-address .address', '1800 F ST NW', 'Washington', 'DC', '20006') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/History/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/History/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = () => {
@@ -203,7 +186,7 @@ const setDomesticTelephone = (selector, first, second, third) => {
     .setValue(selector + ' input[name="domestic_first"]', first)
     .setValue(selector + ' input[name="domestic_second"]', second)
     .setValue(selector + ' input[name="domestic_third"]', third)
-    .click(selector + ' .phonetype-option.cell label')
+    .click(selector + ' .phonetype-option.cell')
     .saveScreenshot('./screenshots/History/' + filenum() + '-set-telephone.png')
 }
 

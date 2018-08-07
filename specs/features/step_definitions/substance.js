@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 let counter = 0
@@ -196,25 +197,6 @@ const completeDrugsVoluntaryTreatment = (promise) => {
     .then(() => { return setDate('.treatment-dates .to', '1', '1', '2012') })
     .then(() => { return setOption('.treatment-completed .no') })
     .then(() => { return setText('.no-treatment-explanation textarea', 'No treatment explanation') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.usa-sidenav-list a[aria-controls="/form/' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Substance/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.usa-sidenav-sub_list a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(1000)
-    .saveScreenshot('./screenshots/Substance/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = (subsection) => {

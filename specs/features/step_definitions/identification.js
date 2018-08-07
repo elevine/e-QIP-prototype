@@ -1,5 +1,6 @@
 const { client } = require('nightwatch-cucumber')
 const { defineSupportCode } = require('cucumber')
+const { navigateToSection, navigateToSubsection } = require('./navigate')
 
 let subcontext = ""
 
@@ -124,25 +125,6 @@ const completePhysicalAttributes = (promise) => {
       .then(() => { return setOption('.hair-colors .bald.block.extended label') })
       .then(() => { return setOption('.eye-colors .black.block.extended label') })
       .then(() => { return setOption('.sex .male label') })
-}
-
-const navigateToSection = (section) => {
-  const selector = '.section a[title="' + section + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .pause(500)
-    .saveScreenshot('./screenshots/Identification/' + filenum() + '-navigate-section.png')
-}
-
-const navigateToSubsection = (section, subsection) => {
-  const selector = '.subsection a[href="/form/' + section + '/' + subsection + '"]'
-  return client
-    .assert.visible(selector)
-    .click(selector)
-    .click(selector)
-    .pause(500)
-    .saveScreenshot('./screenshots/Foreign/' + filenum() + '-navigate-subsection.png')
 }
 
 const navigateToNext = () => {
