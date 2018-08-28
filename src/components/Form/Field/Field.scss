@@ -1,6 +1,20 @@
 @import 'eqip-colors';
 @import 'eqip-fonts';
 
+label {
+  display: inline-block;
+  width: auto !important;
+}
+.flags {
+  max-width: 64rem;
+  text-align: right;
+}
+legend {
+  font-weight: 500;
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
 .field {
   border-left: 0.75rem solid transparent;
   margin-left: -0.75rem;
